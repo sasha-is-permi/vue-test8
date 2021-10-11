@@ -28,7 +28,7 @@ export default new Vuex.Store({
                 
                 axios({
                      method: 'get',
-                     url: "http://epg.domru.ru/channel/list?domain=perm",
+                     url: "http://epg.domru.ru/channel/list?domain=ekat",
                      })
                                
                      .then(function (response) {        
@@ -46,8 +46,9 @@ export default new Vuex.Store({
   },
   getters:{
     channels(state) {
-      // Возвращаем все комманды по запросу из файла vue
-      return state.channels
+      // Возвращаем все каналы 
+      // Сортируем их по значению кнопки (button) (+ -преобразуем строковое значение к цифровому )
+      return state.channels.sort((prev, next) => +prev.button - +next.button);
   }   
   }
 })
