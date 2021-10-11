@@ -28,7 +28,7 @@ export default new Vuex.Store({
                 
                 axios({
                      method: 'get',
-                     url: "http://epg.domru.ru/channel/list?domain=ekat",
+                     url: "http://epg.domru.ru/channel/list?domain=perm",
                      })
                                
                      .then(function (response) {        

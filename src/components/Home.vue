@@ -7,13 +7,13 @@
             <div class="row">
                 <div class=" col content-program">
                     <div class="cont-program-text" id="program-text">
-                        <h2>Блок телепрограмм</h2>
+                        <h1 id="h1">Блок телепрограмм</h1>
                     </div>
 
                 </div>
             </div>
             <div class="row">
-                <div class="col-5">
+    
                     <div class="cont-form-search">
                         <form class="form-search ">
                             <div class="input-group mt-3">
@@ -29,28 +29,35 @@
                             </div>
                         </form>
                     </div>
-                </div>
+               
             </div>
 
 
   
             <div class="row">
-                <div class="col-5">
+                <div >
                     <div class="accordion">
                         <div class="accordion-item" v-for="(channel,index) in channels" :key="index">
                             <input class="accordion-item-input" type="checkbox" :id="'accordion-'+channel.index"/>
                             <label class="accordion-item-triger" :for="'accordion-'+channel.index">
                                 <div class="accordion-block">
-                                    <div class="accordion-block-text">
-                                        <div class="accordion-icon-arrow">
+                                    <div class="row">
+                                    <div class="accordion-block-text col-12">
+                                        <div class="accordion-icon-arrow col-1">
                                             <img src="../assets/icon-down-arrow.svg"/>
                                         </div>
-                                        <div class="accordion-text-h">
+                                         <div class="accordion-text-h col-1">
+                                            <h3>{{channel.button}}</h3>
+                                        </div>                                       
+                                        <div class="accordion-text-h col-3">
                                             <h3>{{channel.alias}}</h3>
+                                            <a :href="channel.url" class="a">    {{channel.url}} </a>
                                         </div>
-                                        <div class="accordion-text-p">
+                                    
+                                        <div class="accordion-text-p col-7">
                                             <p>{{channel.description}}</p>
                                         </div>                                  
+                                     </div>
                                      </div>
 
                                 </div>
@@ -139,6 +146,23 @@
    
 
 <style scoped>
+
+.cont-program-text{
+    width:100vw;
+}
+
+.cont-form-search{
+    margin-bottom:20px;
+}
+
+#h1{
+    font-size:20px;
+    text-align:center;
+}
+
+.a{
+   text-decoration: underline;
+}
 
 .modalDialog{
   margin: auto;
@@ -251,7 +275,8 @@
 
 
 .accordion {
-    width: 1000px;
+    width: 80vw;
+    margin: 0 auto;
 }
 .accordion-item {
     position: relative;
@@ -298,12 +323,16 @@
     font-size: 15px;
     font-weight: 500;
     text-align: left;
-   
-   
+
 }
+
+
+
+
 .accordion-text-p {
-    font-size: 11px;
+   font-size: 15px;
     font-weight: 400;
+    text-align: left;
 }
 .accordion-icon-arrow img {
     margin-bottom: 8px;
