@@ -17,6 +17,7 @@ export default new Vuex.Store({
   state: {
     channels:[],
     programs:[]
+
   },
   mutations: {
            // записываем в state полученную информацию
@@ -24,9 +25,9 @@ export default new Vuex.Store({
             state.channels = data
            },
           // записываем в state полученную информацию
-          programs(state,data){                 
-            state.programs = data
-          },     
+          programs(state,data){
+                state.programs = data
+          }
   },
   actions: {
                
@@ -52,18 +53,20 @@ export default new Vuex.Store({
                        },
 
               // Получение телепрограмм
-              programs({commit}){
+              programs({commit},xvid){
             
                 
                 axios({
                      method: 'get',
-                     url: "http://epg.domru.ru/program/list?domain=ekat&date_from=2015-06-08+00%3A00%3A00&date_to=2015-06-09+00%3A00%3A00&xvid[0]=1601",
+                     url: "http://epg.domru.ru/program/list?domain=ekat&date_from=2021-09-10+00%3A00%3A00&date_to=2021-10-10+00%3A00%3A00&xvid[0]="+xvid,
                      })
                                
                      .then(function (response) {        
                      if (response.status === 200) {  
-                    console.log("programs",response)         
-                     commit('programs',response.data) }})
+                    console.log("programs",response.data)  
+                    console.log("xvid",xvid)       
+                     commit('programs',response.data) 
+                          }})
                      .catch(function (error) {
                       if (error.response.status === 403){
                         console.log("error",error)      
@@ -84,7 +87,7 @@ export default new Vuex.Store({
   programs(state) {
     // Возвращаем программы 
     return state.programs
-}    
+}
   }
 })
 

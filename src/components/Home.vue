@@ -91,7 +91,12 @@
         <button type="button" class="btn-close"  aria-label="Закрыть" @click="closeProgram()" ></button>
       </div>
       <div class="modal-body">
-
+          <div>
+             {{xvid}} 
+          </div>    
+          <div>
+                {{programText}}
+          </div>      
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary"  @click="closeProgram()">Закрыть</button>
@@ -113,7 +118,9 @@
          return{
              channel:"",
              programVisible:false,
-             programName:""
+             programName:"",
+             programText:"",
+             xvid:""
             
          }
      },
@@ -138,8 +145,13 @@
             },
             methods: {
               showProgram(channel){
+               this.$store.dispatch('programs',channel.xvid)   
                this.programName=channel.alias;   
+               let p1=this.$store.getters.programs
+               if (p1.length===0) {this.programText=""}
+                else {this.programText=p1 }
                this.programVisible=true;
+
               },
               closeProgram(){
                  this.programVisible=false;
