@@ -43,18 +43,18 @@
                                      <div class="accordion-block-text">
                                      
                                       <div class="row">                           
-                                        <div class="accordion-icon-arrow col-md-1">
+                                        <div class="accordion-icon-arrow col-md-1" @click="showProgram(channel)">
                                             <img src="../assets/icon-down-arrow.svg"/>
                                         </div>
-                                         <div class="accordion-text-h col-md-1">
+                                         <div class="accordion-text-h col-md-1 " @click="showProgram(channel)" >
                                             <h3>{{channel.button}}</h3>
                                         </div>                                       
                                         <div class="accordion-text-h col-md-3">
-                                            <h3>{{channel.alias}}</h3>
+                                            <h3 @click="showProgram(channel)" >{{channel.alias}}</h3>
                                             <a :href="channel.url" class="a">    {{channel.url}} </a>
                                         </div>
                                     
-                                        <div class="accordion-text-p col-md-7">
+                                        <div class="accordion-text-p col-md-7" @click="showProgram(channel)">
                                             <p>{{channel.description}}</p>
                                         </div>       
 
@@ -65,17 +65,7 @@
                                 </div>
 
                             </label>
-                            <!--
-                            <div class="accordion-item-content" v-for="program in programs1"  v-show="program.channelId==channel.id" :key="program.id">
-                                <div class="accordion-item-block"  v-if="program.channelId==channel.id">
-                                    <div class="accordion-item-block-text">
-                                        <div class="accordion-item-h">
-                                            <h4>{{program.name}}</h4>
-                                        </div>
-                                    </div>
-                                </div>       
-                            </div>
-                            -->
+     
                         </div>
      
 
@@ -91,13 +81,26 @@
     </section>
 
 
+<div v-if="programVisible">
 
+  <div class="modalDialog">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Телепрограмма канала  {{programName}} </h5>
+        <button type="button" class="btn-close"  aria-label="Закрыть" @click="closeProgram()" ></button>
+      </div>
+      <div class="modal-body">
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary"  @click="closeProgram()">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-
-
-
+</div>
 
 
 </div>
@@ -108,7 +111,9 @@
    export default{
      data(){
          return{
-             channel:""
+             channel:"",
+             programVisible:false,
+             programName:""
             
          }
      },
@@ -132,9 +137,19 @@
 
             },
             methods: {
+              showProgram(channel){
+               this.programName=channel.alias;   
+               this.programVisible=true;
+              },
+              closeProgram(){
+                 this.programVisible=false;
+            },
+
+
                setData() {
           // Загружаем из базы данных в channels все каналы
                 this.$store.dispatch('channels')
+     
        
             }
                         },
