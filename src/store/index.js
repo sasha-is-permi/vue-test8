@@ -1,9 +1,9 @@
 // Список каналов:
 // http://epg.domru.ru/channel/list?domain=ekat
 
-// Список телепередач за промежуток времени
-// http://epg.domru.ru/program/list?domain=ekat&date_from=2015-06-08+00%3A00%3A00&date_to=2015-06-09+00%3A00%3A00&xvid[0]=1&xvid[1]=2&xvid[2]=479
-
+// Список телепередач за промежуток времени             
+//    url: "http://epg.domru.ru/program/list?domain=ekat&date_from=2021-09-10+00%3A00%3A00&date_to=2021-10-10+00%3A00%3A00&xvid[0]="+xvid,
+    
 
 
 import Vue from 'vue'
@@ -55,10 +55,32 @@ export default new Vuex.Store({
               // Получение телепрограмм
               programs({commit},xvid){
             
-                
+                let date1= new Date()
+                console.log("date1",date1)
+                // день месяца
+                let day1= date1.getDate()            
+                // месяц начинается с 0
+                let month1= date1.getMonth()+1
+                let year1= date1.getUTCFullYear()
+                 
+                let date1Str= year1+"-"+month1+"-"+day1
+                console.log("date1",date1Str)
+
+                // завтрашний день  
+                let date2 = new Date();              
+                date2.setDate(date2.getDate() + 1); 
+
+                let day2= date2.getDate()            
+                let month2= date2.getMonth()+1
+                let year2= date2.getUTCFullYear()
+
+                let date2Str= year2+"-"+month2+"-"+day2
+                console.log("date2",date2Str)
+
+
                 axios({
                      method: 'get',
-                     url: "http://epg.domru.ru/program/list?domain=ekat&date_from=2021-09-10+00%3A00%3A00&date_to=2021-10-10+00%3A00%3A00&xvid[0]="+xvid,
+                     url: "http://epg.domru.ru/program/list?domain=ekat&date_from="+date1Str+"&date_to="+date2Str+"&xvid[0]="+xvid,
                      })
                                
                      .then(function (response) {        
