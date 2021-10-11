@@ -37,22 +37,26 @@
             <div class="row">
                 <div class="col-5">
                     <div class="accordion">
-                        <div class="accordion-item" v-for="channel in channels" :key="channel.id">
-                            <input class="accordion-item-input" type="checkbox" :id="'accordion-'+channel.id"/>
-                            <label class="accordion-item-triger" :for="'accordion-'+channel.id">
+                        <div class="accordion-item" v-for="(channel,index) in channels" :key="index">
+                            <input class="accordion-item-input" type="checkbox" :id="'accordion-'+channel.index"/>
+                            <label class="accordion-item-triger" :for="'accordion-'+channel.index">
                                 <div class="accordion-block">
                                     <div class="accordion-block-text">
                                         <div class="accordion-icon-arrow">
                                             <img src="../assets/icon-down-arrow.svg"/>
                                         </div>
                                         <div class="accordion-text-h">
-                                            <h3>{{channel.name}}</h3>
+                                            <h3>{{channel.alias}}</h3>
                                         </div>
+                                        <div class="accordion-text-p">
+                                            <p>{{channel.description}}</p>
+                                        </div>                                  
                                      </div>
 
                                 </div>
 
                             </label>
+                            <!--
                             <div class="accordion-item-content" v-for="program in programs1"  v-show="program.channelId==channel.id" :key="program.id">
                                 <div class="accordion-item-block"  v-if="program.channelId==channel.id">
                                     <div class="accordion-item-block-text">
@@ -62,6 +66,7 @@
                                     </div>
                                 </div>       
                             </div>
+                            -->
                         </div>
      
 
@@ -94,22 +99,8 @@
    export default{
      data(){
          return{
-             program:"",
-             channels: [
-             {id:1, name:"Первый канал" },
-             {id:2, name:"Второй канал"},
-             {id:3, name:"Третий канал"},
-             {id:0, name:"Четвертый канал" }],
-             
-             programs: [
-             {id:0,name:"Новости",channelId:1},
-             {id:1,name:"Мультфильм",channelId:2},
-             {id:2,name:"Служебный роман",channelId:3},
-             {id:3,name:"Бриллиантовая рука",channelId:3},
-             {id:4,name:"Приключения Шурика",channelId:3},
-             {id:5,name:"Самогонщики",channelId:3},
-             {id:6,name:"Ну погоди",channelId:0}           
-             ]
+             program:""
+            
          }
      },
                 
@@ -123,12 +114,23 @@
 
                  
                     return programs2;
+            },
+            // получаем весь массив объектов channels из store/channels
+            channels() {
+                    return this.$store.getters.channels
             }
 
             },
             methods: {
-              
-                        }
+               setData() {
+          // Загружаем из базы данных в channels все каналы
+                this.$store.dispatch('channels')
+       
+            }
+                        },
+        created() {
+             this.setData();
+        },            
                 
    }
 </script>
