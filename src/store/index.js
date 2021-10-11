@@ -44,7 +44,7 @@ export default new Vuex.Store({
                        }           
     
   },
-  getters:{
+  getters:{ 
     channels(state) {
       // Возвращаем все каналы 
       // Сортируем их по значению кнопки (button) (+ -преобразуем строковое значение к цифровому )

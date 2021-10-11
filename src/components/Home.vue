@@ -20,10 +20,10 @@
                                 <span class="input-group-text" id=search>
                                     <img src="../assets/icon-search.svg"/>
                                 </span>
-                                <input v-model="program" id="search" type="text" name="search" placeholder="Поиск телепрограмм" class="form-control">
+                                <input v-model="channel" id="search" type="text" name="search" placeholder="Поиск в описании канала" class="form-control">
                                 <!-- Показываем крестик только если что-то введено кроме пробелов
                                   При клике на крестик поле ввода очищается -->
-                                <span v-show="program.trim() !== ''"   @click="program=''" class="input-group-text" id="close">
+                                <span v-show="channel.trim() !== ''"   @click="channel=''" class="input-group-text" id="close">
                                     <img src="../assets/icon-close.svg"/>
                                 </span>
                             </div>
@@ -37,7 +37,7 @@
             <div class="row">
                 <div >
                     <div class="accordion">
-                        <div class="accordion-item" v-for="(channel,index) in channels" :key="index">
+                        <div class="accordion-item" v-for="(channel,index) in channels1" :key="index">
                             <input class="accordion-item-input" type="checkbox" :id="'accordion-'+channel.index"/>
                             <label class="accordion-item-triger" :for="'accordion-'+channel.index">
                                 <div class="accordion-block">
@@ -106,21 +106,22 @@
    export default{
      data(){
          return{
-             program:""
+             channel:""
             
          }
      },
                 
-              computed: {           
-              programs1() {
-                  let programs2 = this.programs;
+              computed: {        
+                  // Фильтр поиск в описании канала - по введенному значению в строке поиска   
+              channels1() {
+                  let channels2 = this.channels;
                 
-                  programs2 = programs2.filter(item => {
-                  return item.name.toUpperCase().indexOf(this.program.toUpperCase())!==-1;
+                  channels2 = channels2.filter(item => {
+                  return item.description.toUpperCase().indexOf(this.channel.toUpperCase())!==-1;
                     })
 
                  
-                    return programs2;
+                    return channels2;
             },
             // получаем весь массив объектов channels из store/channels
             channels() {
