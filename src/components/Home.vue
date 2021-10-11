@@ -35,29 +35,31 @@
 
   
             <div class="row">
-                <div >
-                    <div class="accordion">
+                      <div class="accordion">
                         <div class="accordion-item" v-for="(channel,index) in channels1" :key="index">
                             <input class="accordion-item-input" type="checkbox" :id="'accordion-'+channel.index"/>
                             <label class="accordion-item-triger" :for="'accordion-'+channel.index">
                                 <div class="accordion-block">
-                                    <div class="row">
-                                    <div class="accordion-block-text col-12">
-                                        <div class="accordion-icon-arrow col-1">
+                                     <div class="accordion-block-text">
+                                     
+                                      <div class="row">                           
+                                        <div class="accordion-icon-arrow col-md-1">
                                             <img src="../assets/icon-down-arrow.svg"/>
                                         </div>
-                                         <div class="accordion-text-h col-1">
+                                         <div class="accordion-text-h col-md-1">
                                             <h3>{{channel.button}}</h3>
                                         </div>                                       
-                                        <div class="accordion-text-h col-3">
+                                        <div class="accordion-text-h col-md-3">
                                             <h3>{{channel.alias}}</h3>
                                             <a :href="channel.url" class="a">    {{channel.url}} </a>
                                         </div>
                                     
-                                        <div class="accordion-text-p col-7">
+                                        <div class="accordion-text-p col-md-7">
                                             <p>{{channel.description}}</p>
-                                        </div>                                  
+                                        </div>       
+
                                      </div>
+
                                      </div>
 
                                 </div>
@@ -78,7 +80,7 @@
      
 
                     </div>
-                </div>
+
             </div>
 
 
