@@ -1,8 +1,8 @@
 // Список каналов:
-// http://epg.domru.ru/channel/list?domain=ekat
+// http://epg.domru.ru/channel/list?domain=perm
 
 // Список телепередач за промежуток времени             
-//    url: "http://epg.domru.ru/program/list?domain=ekat&date_from=2021-09-10+00%3A00%3A00&date_to=2021-10-10+00%3A00%3A00&xvid[0]="+xvid,
+//    url: "http://epg.domru.ru/program/list?domain=perm&date_from=2021-09-10+00%3A00%3A00&date_to=2021-10-10+00%3A00%3A00&xvid[0]="+xvid,
     
 
 
@@ -32,12 +32,12 @@ export default new Vuex.Store({
   actions: {
                
               // Получение всех каналов с сервера
-              channels({commit}){
+             async channels({commit}){
             
                 
-                axios({
+            await  axios({
                      method: 'get',
-                     url: "http://epg.domru.ru/channel/list?domain=ekat",
+                     url: "http://epg.domru.ru/channel/list?domain=perm",
                      })
                                
                      .then(function (response) {        
@@ -53,7 +53,7 @@ export default new Vuex.Store({
                        },
 
               // Получение телепрограмм
-              programs({commit},xvid){
+             async programs({commit},xvid){
             
                 let date1= new Date()
                 console.log("date1",date1)
@@ -78,9 +78,9 @@ export default new Vuex.Store({
                 console.log("date2",date2Str)
 
 
-                axios({
+               await axios({
                      method: 'get',
-                     url: "http://epg.domru.ru/program/list?domain=ekat&date_from="+date1Str+"&date_to="+date2Str+"&xvid[0]="+xvid,
+                     url: "http://epg.domru.ru/program/list?domain=perm&date_from="+date1Str+"&date_to="+date2Str+"&xvid[0]="+xvid,
                      })
                                
                      .then(function (response) {        

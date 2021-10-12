@@ -7,7 +7,7 @@
             <div class="row">
                 <div class=" col content-program">
                     <div class="cont-program-text" id="program-text">
-                        <h1 id="h1">Блок телепрограмм</h1>
+                        <h1 id="h1">Блок телепрограмм Пермского телевидения</h1>
                     </div>
 
                 </div>
@@ -94,8 +94,9 @@
           <div>
              {{xvid}} 
           </div>    
-          <div>
-                {{programText}}
+          <div v-for= "(program,index) in programs1" :key="index">
+              <p>   {{program.start}}  &nbsp; {{program.title}} </p> 
+              <p>   {{program.desc}} </p>
           </div>      
       </div>
       <div class="modal-footer">
@@ -119,7 +120,6 @@
              channel:"",
              programVisible:false,
              programName:"",
-             programText:"",
              xvid:""
             
          }
@@ -140,16 +140,33 @@
             // получаем весь массив объектов channels из store/channels
             channels() {
                     return this.$store.getters.channels
-            }
+            },
+             programs1(){
+             
+               let p1=this.$store.getters.programs
+               console.log("p1:",p1)
+               if (p1.length===0) {this.programText=""}
+                else {               
+               let keys = Object.keys(p1);
+
+               let val=[]
+
+               for (let i = 0; i < keys.length; i++) {
+                val = p1[keys[i]];    
+               }
+
+
+               return val
+
+                } }
 
             },
             methods: {
               showProgram(channel){
-               this.$store.dispatch('programs',channel.xvid)   
-               this.programName=channel.alias;   
-               let p1=this.$store.getters.programs
-               if (p1.length===0) {this.programText=""}
-                else {this.programText=p1 }
+               this.$store.dispatch('programs',channel.xvid)
+               
+                this.programName=channel.alias;   
+             
                this.programVisible=true;
 
               },
